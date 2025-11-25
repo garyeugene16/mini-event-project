@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acara - Event Platform</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="#" class="nav-brand">Event</a>
+        </div>
+
+        <div class="nav-right">
+            <a href="login.html" class="btn-signin-outline">Sign in</a>
+        </div>
+    </nav>
+
+    <!-- Konten Utama -->
+    <div class="container">
+
+        <h1 class="page-title">Acara</h1>
+
+        <!-- Grid Event -->
+        <div class="event-grid">
+
+            <!-- Card 1 -->
+            <div class="event-card" onclick="window.location.href='detail.html'">
+                <div class="card-image-wrapper">
+                    <!-- Placeholder Image (Ganti src dengan gambar asli di folder images/) -->
+                    <img src="images/event1.jpg" alt="Event 1" class="card-img" onerror="this.style.background='#ccc'">
+                    <div class="date-badge">
+                        <span class="date-month">NOV</span>
+                        <span class="date-day">01</span>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3 class="event-title">Sahabat Sejati</h3>
+                </div>
+            </div>
+
+        </div> <!-- End Grid -->
+    </div> <!-- End Container -->
+
+</body>
+
+</html>

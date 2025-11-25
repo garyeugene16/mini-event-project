@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Event Platform</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="login-body">
+
+    <div class="login-card">
+
+        <div class="card-header">
+            <h2 class="login-title">LOGIN PAGE</h2>
+            <div class="logos">
+                <img src="images/logo.png" alt="Logo Unpar" class="logo-img">
+            </div>
+        </div>
+
+        <form action="/login" method="POST">
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Alamat Email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Password" required>
+            </div>
+
+            <button type="submit" class="btn-login">Log In</button>
+
+        </form>
+    </div>
+
+</body>
+
+</html>
