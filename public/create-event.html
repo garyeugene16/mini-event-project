@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buat Event Baru - Event Platform</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="login-body">
+
+    <div class="login-card card-wide">
+
+        <div class="card-header">
+            <h2 class="login-title">BUAT EVENT BARU</h2>
+            <div class="logos">
+                <img src="images/logo.png" alt="Logo Unpar" class="logo-img">
+            </div>
+        </div>
+
+        <form action="/api/events" method="POST">
+
+            <div class="form-group">
+                <label for="title">Judul Event</label>
+                <input type="text" id="title" name="title" placeholder="Contoh: Seminar Teknologi" required>
+            </div>
+
+            <div class="form-group">
+                <label for="date">Tanggal Event</label>
+                <input type="date" id="date" name="date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="location">Lokasi</label>
+                <input type="text" id="location" name="location" placeholder="Contoh: Aula Gedung A" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Deskripsi</label>
+                <textarea id="description" name="description" rows="4" class="form-textarea"
+                    placeholder="Deskripsi singkat mengenai event..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="image">Nama File Gambar</label>
+                <input type="text" id="image" name="image"
+                    placeholder="Contoh: event1.jpg (Pastikan file ada di folder images)" required>
+            </div>
+
+            <button type="submit" class="btn-login">Simpan Event</button>
+
+            <div class="form-footer">
+                <a href="/" class="link-secondary">Kembali ke Dashboard</a>
+            </div>
+
+        </form>
+    </div>
+
+</body>
+
+</html>

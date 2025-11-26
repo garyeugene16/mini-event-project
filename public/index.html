@@ -30,23 +30,97 @@
         <div class="event-grid">
 
             <!-- Card 1 -->
-            <div class="event-card" onclick="window.location.href='detail.html'">
+            <div class="event-card">
                 <div class="card-image-wrapper">
                     <!-- Placeholder Image (Ganti src dengan gambar asli di folder images/) -->
-                    <img src="images/event1.jpg" alt="Event 1" class="card-img" onerror="this.style.background='#ccc'">
+                    <img src="images/event1.webp" alt="Event 1" class="card-img" onerror="this.style.background='#ccc'">
                     <div class="date-badge">
                         <span class="date-month">NOV</span>
                         <span class="date-day">01</span>
                     </div>
                 </div>
                 <div class="card-content">
-                    <h3 class="event-title">Sahabat Sejati</h3>
+                    <div class="title-row">
+                        <h3 class="event-title">Sahabat Sejati</h3>
+                        <button class="btn-register" onclick="openModal('Sahabat Sejati')">Daftar</button>
+                    </div>
                 </div>
             </div>
 
         </div> <!-- End Grid -->
     </div> <!-- End Container -->
 
+    <!-- Modal Registration -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalEventTitle" class="modal-title">Daftar Event</h2>
+            <p class="modal-description">Silahkan isi data diri Anda untuk mendaftar event ini.</p>
+
+            <form id="registerForm" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label for="name">Nama Lengkap</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Nomor Telepon</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <button type="submit" class="btn-login btn-success">Daftar Sekarang</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById("registerModal");
+        const modalTitle = document.getElementById("modalEventTitle");
+
+        function openModal(title) {
+            modalTitle.innerText = "Daftar: " + title;
+            modal.style.display = "flex";
+        }
+
+        function closeModal() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        function handleRegister(event) {
+            event.preventDefault();
+            const name = document.getElementById("name").value;
+            const phone = document.getElementById("phone").value;
+            const email = document.getElementById("email").value;
+            const eventName = modalTitle.innerText.replace("Daftar: ", "");
+
+            // Simulate API call
+            fetch('/api/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name, phone, email, eventName }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    alert("Pendaftaran Berhasil! Anda telah terdaftar di event " + eventName);
+                    closeModal();
+                    document.getElementById("registerForm").reset();
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    alert("Terjadi kesalahan saat mendaftar.");
+                });
+        }
+    </script>
 </body>
 
 </html>

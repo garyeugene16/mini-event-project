@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Event Platform</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="#" class="nav-brand">Event Admin</a>
+        </div>
+
+        <div class="nav-right">
+            <span class="welcome-text">Welcome, Admin</span>
+            <a href="/" class="btn-signin-outline btn-logout">Logout</a>
+        </div>
+    </nav>
+
+    <!-- Konten Utama -->
+    <div class="container">
+
+        <div class="admin-header">
+            <h1 class="page-title mb-0">Daftar Event</h1>
+            <a href="create-event.html" class="btn-create">+ Buat Event Baru</a>
+        </div>
+
+        <table class="event-table">
+            <thead>
+                <tr>
+                    <th class="col-no">No</th>
+                    <th>Judul Event</th>
+                    <th>Tanggal</th>
+                    <th>Lokasi</th>
+                    <th class="col-action">Aksi</th>
+                </tr>
+            </thead>
+            <tbody id="eventTableBody">
+                <!-- Data will be populated by JS -->
+            </tbody>
+        </table>
+
+    </div>
+
+    <script>
+        // Fetch events from API
+        fetch('/api/events')
+            .then(response => response.json())
+            .then(events => {
+                const tbody = document.getElementById('eventTableBody');
+                tbody.innerHTML = '';
+
+                if (events.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" class="empty-state">Belum ada event.</td></tr>';
+                    return;
+                }
+
+                events.forEach((event, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>${event.title}</td>
+                        <td>${event.date}</td>
+                        <td>${event.location}</td>
+                        <td>
+                            <a href="#" class="action-btn btn-edit" onclick="alert('Edit feature coming soon')">Edit</a>
+                            <a href="#" class="action-btn btn-delete" onclick="deleteEvent('${event.id}')">Delete</a>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            })
+            .catch(err => console.error('Error loading events:', err));
+
+        function deleteEvent(id) {
+            if (confirm('Apakah Anda yakin ingin menghapus event ini?')) {
+                fetch(`/api/events/${id}`, {
+                    method: 'DELETE'
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Event berhasil dihapus');
+                            location.reload();
+                        } else {
+                            alert('Gagal menghapus event');
+                        }
+                    })
+                    .catch(err => alert('Error: ' + err));
+            }
+        }
+    </script>
+
+</body>
+
+</html>

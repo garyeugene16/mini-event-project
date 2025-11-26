@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Event - Event Platform</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="login-body">
+
+    <div class="login-card">
+
+        <div class="card-header">
+            <h2 class="login-title">DAFTAR EVENT</h2>
+            <div class="logos">
+                <img src="images/logo.png" alt="Logo Unpar" class="logo-img">
+            </div>
+        </div>
+
+        <form action="/register" method="POST">
+
+            <div class="form-group">
+                <label for="name">Nama Lengkap</label>
+                <input type="text" id="name" name="name" placeholder="Nama Lengkap Anda" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Alamat Email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Nomor Telepon</label>
+                <input type="tel" id="phone" name="phone" placeholder="08xxxxxxxxxx" required>
+            </div>
+
+            <button type="submit" class="btn-login">Daftar Sekarang</button>
+
+            <div class="form-footer">
+                <a href="/" class="link-secondary">Kembali ke Beranda</a>
+            </div>
+
+        </form>
+    </div>
+
+</body>
+
+</html>
