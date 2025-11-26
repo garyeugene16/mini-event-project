@@ -1,52 +1,188 @@
 <!DOCTYPE html>
 <html lang="id">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acara - Event Platform</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-
-<body>
-
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="nav-left">
-            <a href="#" class="nav-brand">Event</a>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="Platform Pendaftaran Event Kampus" />
+    <meta name="author" content="" />
+    <title>Beranda - Mini Event Platform</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/styles.css" rel="stylesheet" />
+  </head>
+  <body>
+    <nav
+      class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm"
+    >
+      <div class="container">
+        <a class="navbar-brand" href="index.html">MINI EVENT PLATFORM</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="index.html">HOME</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">KONTAK</a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="login.html"
+                style="border: 2px solid #4366a3; border-radius: 12px; margin-left: 10px;"
+                >ADMIN LOGIN</a
+              >
+            </li>
+          </ul>
         </div>
-
-        <div class="nav-right">
-            <a href="login.html" class="btn-signin-outline">Sign in</a>
-        </div>
+      </div>
     </nav>
 
-    <!-- Konten Utama -->
-    <div class="container">
+    <div class="text-center my-5">
+      <h1 class="fw-bold">Temukan Event Seru di Kampusmu!</h1>
+      <p class="lead">
+        Daftar seminar, workshop, dan konser musik tanpa ribet hanya di Mini Event Platform.
+      </p>
+    </div>
 
-        <h1 class="page-title">Acara</h1>
+    <div class="container px-4 px-lg-5">
+      
 
-        <!-- Grid Event -->
-        <div class="event-grid">
+      <div class="card text-white bg-secondary my-5 py-4 text-center">
+        <div class="card-body">
+          <p class="text-white m-0">
+            Punya acara himpunan atau organisasi? Hubungi kami untuk mempublikasikan event kalian di sini!
+          </p>
+        </div>
+      </div>
 
-            <!-- Card 1 -->
-            <div class="event-card" onclick="window.location.href='detail.html'">
-                <div class="card-image-wrapper">
-                    <!-- Placeholder Image (Ganti src dengan gambar asli di folder images/) -->
-                    <img src="images/event1.jpg" alt="Event 1" class="card-img" onerror="this.style.background='#ccc'">
-                    <div class="date-badge">
-                        <span class="date-month">NOV</span>
-                        <span class="date-day">01</span>
+      <div id="list-event" class="mb-4">
+          <h2 class="fw-bold">Acara Terbaru</h2>
+      </div>
+      
+      <div class="row gx-4 gx-lg-5" id="eventContainer">
+        </div>
+    </div>
+
+
+    <div id="contact"></div>
+    <hr />
+
+    <section class="my-4">
+      <div class="container px-4 px-lg-5">
+        <h2 class="fw-bold text-center mb-4">Hubungi Admin</h2>
+        <div class="row gx-4 gx-lg-5">
+          <div class="col-lg-6 mb-4">
+            <form>
+              <div class="form-group mb-3">
+                <input type="text" class="form-control" id="name" placeholder="Nama Lengkap*" required/>
+              </div>
+              <div class="form-group mb-3">
+                <input type="email" class="form-control" id="email" placeholder="Email Mahasiswa*" required/>
+              </div>
+              <div class="form-group mb-3">
+                <label for="message" class="mb-2">Keperluan</label>
+                <textarea
+                  class="form-control"
+                  style="resize: none"
+                  id="message"
+                  rows="5"
+                  placeholder="Ingin mengajukan kerjasama event..."
+                  required
+                ></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Kirim Pesan</button>
+            </form>
+          </div>
+          <div class="col-lg-6">
+            <h5>Kantor Sekretariat</h5>
+            <p><strong>Email:</strong> event@kampus.ac.id</p>
+            <p><strong>Telepon:</strong> +62 812-0000-EVENT</p>
+            <p>
+              <strong>Alamat:</strong> Gedung Kemahasiswaan Lt. 2
+            </p>
+            <p>
+              Jam Operasional: Senin - Jumat (09.00 - 16.00 WIB)
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="py-4 bg-dark">
+      <div class="container px-4 px-lg-5">
+        <p class="m-0 text-center text-white">
+          Copyright &copy; Mini Event Platform 2024
+        </p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script type="module">
+      // Import data dari file data.js
+      import { eventList } from "./js/data.js";
+
+      // Ambil elemen container di HTML
+      const container = document.getElementById("eventContainer");
+
+      // Looping data event
+      eventList.forEach((event) => {
+        // Buat elemen div column baru
+        const col = document.createElement("div");
+        col.className = "col-md-4 mb-5"; // Style layout Bootstrap
+
+        // Isi konten HTML card
+        col.innerHTML = `
+            <div class="card h-100 shadow-sm border-0">
+                <div style="position:relative; overflow:hidden; height:200px;">
+                    <img src="${event.foto}" class="card-img-top" alt="${event.nama}" style="object-fit:cover; height:100%; width:100%;">
+                    <div style="position:absolute; top:10px; right:10px; background:white; padding:5px 10px; border-radius:20px; font-size:12px; font-weight:bold; color:#4366a3;">
+                        ${event.kategori}
                     </div>
                 </div>
-                <div class="card-content">
-                    <h3 class="event-title">Sahabat Sejati</h3>
+                <div class="card-body">
+                    <h5 class="card-title fw-bold">${event.nama}</h5>
+                    <p class="card-text text-muted mb-2" style="font-size: 0.9rem;">
+                        <i class="fas fa-calendar-alt"></i> ${event.tanggal}
+                    </p>
+                    <p class="card-text text-muted" style="font-size: 0.9rem;">
+                        <i class="fas fa-map-marker-alt"></i> ${event.lokasi}
+                    </p>
+                    <p class="card-text">${event.deskripsi}</p>
+                </div>
+                <div class="card-footer bg-white border-top-0 pb-4">
+                    <a href="detail.html?id=${event.id}" class="btn btn-primary btn-sm w-100">Lihat Detail</a>
                 </div>
             </div>
+        `;
+        
+        // Masukkan card ke dalam container
+        container.appendChild(col);
+      });
+    </script>
 
-        </div> <!-- End Grid -->
-    </div> <!-- End Container -->
-
-</body>
-
+    <script>
+      const form = document.querySelector("#contact form"); 
+      form.addEventListener("submit", function (event) {
+        event.preventDefault(); 
+        alert("Pesan Anda telah dikirim ke Admin!");
+        form.reset();
+      });
+    </script>
+  </body>
 </html>

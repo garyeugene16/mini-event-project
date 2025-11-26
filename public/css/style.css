@@ -319,3 +319,124 @@ body {
     font-size: 13px;
     color: #666;
 }
+
+/* Header Hero Section */
+.event-header {
+    position: relative;
+    padding: 80px 0;
+    color: white;
+    overflow: hidden;
+    margin-bottom: 40px;
+}
+
+.header-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    z-index: -2;
+    filter: blur(4px); /* Efek blur estetik */
+    transform: scale(1.1);
+}
+
+.header-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6); /* Gelapkan gambar agar teks terbaca */
+    z-index: -1;
+}
+
+.event-tag {
+    background-color: #4366a3;
+    padding: 5px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.header-title {
+    font-size: 36px;
+    font-weight: 800;
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.header-meta {
+    font-size: 16px;
+    opacity: 0.9;
+    display: flex;
+    gap: 20px;
+}
+
+/* Layout Grid Detail (Kiri Konten, Kanan Form) */
+.detail-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Kiri lebih lebar dari kanan */
+    gap: 40px;
+    align-items: start;
+}
+
+/* Responsif untuk layar HP */
+@media (max-width: 768px) {
+    .detail-grid {
+        grid-template-columns: 1fr; /* Jadi satu kolom ke bawah di HP */
+    }
+}
+
+.detail-left .content-section h3 {
+    margin-bottom: 15px;
+    color: #222;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+.detail-left p {
+    margin-bottom: 15px;
+    color: #444;
+}
+
+.detail-list {
+    padding-left: 20px;
+    color: #444;
+}
+
+.detail-list li {
+    margin-bottom: 8px;
+}
+
+/* Kartu Form Pendaftaran di Kanan */
+.registration-card {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    position: sticky;
+    top: 100px; /* Agar form tetap terlihat saat discroll */
+    border: 1px solid #eee;
+}
+
+.reg-header {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.reg-header h3 {
+    color: #4366a3;
+    font-size: 20px;
+}
+
+.reg-header p {
+    font-size: 13px;
+    color: #666;
+}

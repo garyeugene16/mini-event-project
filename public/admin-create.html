@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Admin - Tambah Event</title>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" type="text/css">
+    
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    
+    <style>
+        .sidebar-brand-text { letter-spacing: 1px; }
+    </style>
+</head>
+
+<body id="page-top">
+
+    <div id="wrapper">
+
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-ticket-alt"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">Mini Event</div>
+            </a>
+
+            <hr class="sidebar-divider my-0">
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
+
+            <hr class="sidebar-divider">
+
+            <div class="sidebar-heading">
+                Menu Event
+            </div>
+
+            <li class="nav-item active">
+                <a class="nav-link" href="admin-create.html">
+                    <i class="fas fa-fw fa-plus-circle"></i>
+                    <span>Buat Event Baru</span></a>
+            </li>
+
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+        </ul>
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <div id="content">
+
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <ul class="navbar-nav ml-auto">
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="adminNameDisplay">Admin</span>
+                                <img class="img-profile rounded-circle"
+                                    src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#" onclick="logout()">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <div class="container-fluid">
+
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Tambah Event Baru</h1>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Formulir Data Event</h6>
+                                </div>
+                                <div class="card-body">
+                                    <form id="createEventForm">
+                                        <div class="form-group">
+                                            <label>Nama Event</label>
+                                            <input type="text" id="nama" class="form-control" placeholder="Contoh: Konser Amal 2024" required>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Tanggal Pelaksanaan</label>
+                                                    <input type="date" id="tanggal" class="form-control" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Kategori</label>
+                                                    <select id="kategori" class="form-control">
+                                                        <option value="Musik">Musik</option>
+                                                        <option value="Seminar">Seminar</option>
+                                                        <option value="Workshop">Workshop</option>
+                                                        <option value="E-Sport">E-Sport</option>
+                                                        <option value="Seni">Seni</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Lokasi</label>
+                                            <input type="text" id="lokasi" class="form-control" placeholder="Contoh: Aula Kampus" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>URL Gambar Banner</label>
+                                            <input type="text" id="foto" class="form-control" placeholder="Masukkan URL gambar (https://...)" value="https://dummyimage.com/600x400/4e73df/fff&text=New+Event">
+                                            <small class="text-muted">Untuk demo, gunakan link gambar online atau biarkan default.</small>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Deskripsi Lengkap</label>
+                                            <textarea id="deskripsi" class="form-control" rows="5" required></textarea>
+                                        </div>
+
+                                        <hr>
+                                        <button type="submit" class="btn btn-primary btn-icon-split">
+                                            <span class="icon text-white-50">
+                                                <i class="fas fa-save"></i>
+                                            </span>
+                                            <span class="text">Simpan Event</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                </div>
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Mini Event 2024</span>
+                    </div>
+                </div>
+            </footer>
+            </div>
+        </div>
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <script>
+        // 1. CEK LOGIN (Security Guard Sederhana)
+        // Jika tidak ada data login di localStorage, tendang ke login.html
+        if (!localStorage.getItem('isLoggedIn')) {
+            alert("Anda harus login terlebih dahulu!");
+            window.location.href = 'login.html';
+        }
+
+        // Tampilkan nama admin
+        document.getElementById('adminNameDisplay').innerText = localStorage.getItem('adminName') || 'Admin';
+
+        // 2. FUNGSI LOGOUT
+        function logout() {
+            if(confirm("Yakin ingin keluar?")) {
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('adminName');
+                window.location.href = 'index.html';
+            }
+        }
+
+        // 3. FUNGSI SIMPAN EVENT
+        const form = document.getElementById('createEventForm');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Ambil values dari form
+            const newEvent = {
+                id: Date.now(), // Generate ID unik pakai timestamp
+                nama: document.getElementById('nama').value,
+                tanggal: document.getElementById('tanggal').value,
+                kategori: document.getElementById('kategori').value,
+                lokasi: document.getElementById('lokasi').value,
+                foto: document.getElementById('foto').value,
+                deskripsi: document.getElementById('deskripsi').value
+            };
+
+            // Ambil data event lama dari LocalStorage (jika ada)
+            let currentEvents = JSON.parse(localStorage.getItem('customEvents')) || [];
+            
+            // Masukkan event baru ke array
+            currentEvents.push(newEvent);
+
+            // Simpan balik ke LocalStorage
+            localStorage.setItem('customEvents', JSON.stringify(currentEvents));
+
+            alert('Event Berhasil Dibuat!');
+            
+            // Redirect ke halaman depan untuk lihat hasilnya
+            window.location.href = 'index.html';
+        });
+    </script>
+
+</body>
+
+</html>

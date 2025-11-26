@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>Detail Acara - Mini Event Platform</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/styles.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">MINI EVENT PLATFORM</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">HOME</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="#">DETAIL EVENT</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container mt-5 mb-5">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page" id="breadcrumb-title">Detail Event</li>
+        </ol>
+      </nav>
+
+      <div class="row">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0 mb-4">
+                <img id="detail-img" src="" class="card-img-top" alt="Event Image" style="max-height: 400px; object-fit: cover;">
+                <div class="card-body">
+                    <span class="badge bg-primary mb-2" id="detail-kategori">Kategori</span>
+                    
+                    <h1 class="fw-bold mb-3" id="detail-nama">Loading...</h1>
+                    
+                    <div class="d-flex flex-wrap gap-4 text-muted mb-4">
+                        <div>
+                            <i class="fas fa-calendar-alt me-2"></i>
+                            <span id="detail-tanggal">-</span>
+                        </div>
+                        <div>
+                            <i class="fas fa-map-marker-alt me-2"></i>
+                            <span id="detail-lokasi">-</span>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <h4 class="fw-bold">Deskripsi Acara</h4>
+                    <p class="text-justify lh-lg" id="detail-deskripsi">
+                        Memuat deskripsi event...
+                    </p>
+                    
+                    <div class="alert alert-info mt-4">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Catatan:</strong> Harap datang 30 menit sebelum acara dimulai untuk registrasi ulang.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card shadow-sm border-0" style="position: sticky; top: 100px;">
+                <div class="card-header bg-primary text-white text-center py-3">
+                    <h5 class="mb-0 fw-bold">Daftar Sekarang</h5>
+                    <small>Amankan kuota kursimu!</small>
+                </div>
+                <div class="card-body p-4">
+                    <form id="registrationForm">
+                        <input type="hidden" id="form-event-name" name="eventName">
+
+                        <div class="mb-3">
+                            <label for="nama" class="form-label">Nama Lengkap</label>
+                            <input type="text" class="form-control" id="nama" placeholder="Sesuai KTM/KTP" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Mahasiswa</label>
+                            <input type="email" class="form-control" id="email" placeholder="contoh@student.unpar.ac.id" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Nomor WhatsApp</label>
+                            <input type="tel" class="form-control" id="phone" placeholder="0812xxxx" required>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary fw-bold py-2">
+                                <i class="fas fa-paper-plane me-2"></i> Kirim Pendaftaran
+                            </button>
+                        </div>
+                        <div class="text-center mt-3">
+                            <small class="text-muted">Gratis untuk seluruh mahasiswa aktif.</small>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="py-4 bg-dark mt-auto">
+      <div class="container px-4 px-lg-5">
+        <p class="m-0 text-center text-white">
+          Copyright &copy; Mini Event Platform 2024
+        </p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script type="module">
+        import { eventList } from "./js/data.js";
+
+        // 1. Ambil ID dari URL (contoh: detail.html?id=1)
+        const params = new URLSearchParams(window.location.search);
+        const idParam = params.get('id');
+
+        // 2. Jika tidak ada ID, kembalikan ke index
+        if (!idParam) {
+            window.location.href = 'index.html';
+        }
+
+        // 3. Cari event yang cocok di array data.js
+        // Kita pakai parseInt karena id di data.js berupa number (1, 2, dst)
+        const event = eventList.find(item => item.id === parseInt(idParam));
+
+        // 4. Tampilkan data ke HTML
+        if (event) {
+            document.title = `${event.nama} - Detail Event`;
+            document.getElementById('breadcrumb-title').innerText = event.nama;
+            
+            // Set Gambar
+            document.getElementById('detail-img').src = event.foto;
+            document.getElementById('detail-img').alt = event.nama;
+            
+            // Set Teks
+            document.getElementById('detail-nama').innerText = event.nama;
+            document.getElementById('detail-kategori').innerText = event.kategori;
+            document.getElementById('detail-tanggal').innerText = event.tanggal;
+            document.getElementById('detail-lokasi').innerText = event.lokasi;
+            document.getElementById('detail-deskripsi').innerText = event.deskripsi;
+
+            // Set value hidden input untuk form
+            document.getElementById('form-event-name').value = event.nama;
+        } else {
+            // Jika ID ngawur (tidak ditemukan)
+            document.querySelector('.container').innerHTML = `
+                <div class="text-center my-5">
+                    <h1>404</h1>
+                    <p>Event tidak ditemukan.</p>
+                    <a href="index.html" class="btn btn-primary">Kembali ke Beranda</a>
+                </div>
+            `;
+        }
+
+        // 5. Handle Submit Form (Simulasi)
+        const form = document.getElementById('registrationForm');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // Mencegah reload halaman
+            
+            const namaUser = document.getElementById('nama').value;
+            const namaEvent = document.getElementById('form-event-name').value;
+
+            alert(`Terima kasih, ${namaUser}!\n\nPendaftaran kamu untuk event "${namaEvent}" berhasil diterima.\nTiket akan dikirim via Email.`);
+            
+            // Redirect ke home setelah daftar
+            window.location.href = 'index.html';
+        });
+    </script>
+  </body>
+</html>
