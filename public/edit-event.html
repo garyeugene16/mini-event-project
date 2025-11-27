@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Event - Event Platform</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="login-body">
+
+    <div class="login-card card-wide">
+
+        <div class="card-header">
+            <h2 class="login-title">EDIT EVENT</h2>
+            <div class="logos">
+                <img src="images/logo.png" alt="Logo Unpar" class="logo-img">
+            </div>
+        </div>
+
+        <form id="editForm" onsubmit="handleEdit(event)">
+
+            <div class="form-group">
+                <label for="title">Judul Event</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+
+            <div class="form-group">
+                <label for="date">Tanggal Event</label>
+                <input type="date" id="date" name="date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="location">Lokasi</label>
+                <input type="text" id="location" name="location" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Deskripsi</label>
+                <textarea id="description" name="description" rows="4" class="form-textarea"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="image">Nama File Gambar</label>
+                <input type="text" id="image" name="image" required>
+            </div>
+
+            <button type="submit" class="btn-login" style="background-color: #ffc107; color: #333;">Update
+                Event</button>
+
+            <div class="form-footer">
+                <a href="/admin-dashboard.html" class="link-secondary">Kembali ke Dashboard</a>
+            </div>
+
+        </form>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const eventId = urlParams.get('id');
+
+        if (!eventId) {
+            alert('Event ID not found');
+            window.location.href = '/admin-dashboard.html';
+        }
+
+        // Panggil routing untuk api
+        fetch(`/api/events/${eventId}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.error) {
+                    alert('Event not found');
+                    window.location.href = '/admin-dashboard.html';
+                    return;
+                }
+                document.getElementById('title').value = data.title;
+                document.getElementById('date').value = data.date;
+                document.getElementById('location').value = data.location;
+                document.getElementById('description').value = data.description;
+                document.getElementById('image').value = data.image.replace('images/', '');
+            })
+            .catch(err => console.error('Error loading event:', err));
+
+        function handleEdit(event) {
+            event.preventDefault();
+            const title = document.getElementById('title').value;
+            const date = document.getElementById('date').value;
+            const location = document.getElementById('location').value;
+            const description = document.getElementById('description').value;
+            const image = 'images/' + document.getElementById('image').value;
+            // Panggil api event untuk update
+            fetch(`/api/events/${eventId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ title, date, location, description, image })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Event berhasil diupdate!');
+                        window.location.href = '/admin-dashboard.html';
+                    } else {
+                        alert('Gagal mengupdate event: ' + data.error);
+                    }
+                })
+                .catch(err => alert('Error: ' + err));
+        }
+    </script>
+
+</body>
+
+</html>

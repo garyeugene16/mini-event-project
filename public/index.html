@@ -27,30 +27,12 @@
         <h1 class="page-title">Acara</h1>
 
         <!-- Grid Event -->
-        <div class="event-grid">
+        <div class="event-grid" id="eventGrid">
+            
+        </div>
+    </div>
 
-            <!-- Card 1 -->
-            <div class="event-card">
-                <div class="card-image-wrapper">
-                    <!-- Placeholder Image (Ganti src dengan gambar asli di folder images/) -->
-                    <img src="images/event1.webp" alt="Event 1" class="card-img" onerror="this.style.background='#ccc'">
-                    <div class="date-badge">
-                        <span class="date-month">NOV</span>
-                        <span class="date-day">01</span>
-                    </div>
-                </div>
-                <div class="card-content">
-                    <div class="title-row">
-                        <h3 class="event-title">Sahabat Sejati</h3>
-                        <button class="btn-register" onclick="openModal('Sahabat Sejati')">Daftar</button>
-                    </div>
-                </div>
-            </div>
-
-        </div> <!-- End Grid -->
-    </div> <!-- End Container -->
-
-    <!-- Modal Registration -->
+    <!-- Popup registrasi -->
     <div id="registerModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
@@ -79,6 +61,48 @@
         const modal = document.getElementById("registerModal");
         const modalTitle = document.getElementById("modalEventTitle");
 
+        // Ambil event dari server
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('/api/events')
+                .then(res => res.json())
+                .then(events => {
+                    const grid = document.getElementById('eventGrid');
+                    grid.innerHTML = '';
+
+                    if (events.length === 0) {
+                        grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center;">Belum ada event yang tersedia.</p>';
+                        return;
+                    }
+
+                    events.forEach(event => {
+                        const dateObj = new Date(event.date);
+                        const month = dateObj.toLocaleString('id-ID', { month: 'short' }).toUpperCase();
+                        const day = dateObj.getDate().toString().padStart(2, '0');
+
+                        const card = document.createElement('div');
+                        card.className = 'event-card';
+                        card.innerHTML = `
+                            <div class="card-image-wrapper">
+                                <img src="${event.image}" alt="${event.title}" class="card-img" onerror="this.style.background='#ccc'">
+                                <div class="date-badge">
+                                    <span class="date-month">${month}</span>
+                                    <span class="date-day">${day}</span>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="title-row">
+                                    <h3 class="event-title">${event.title}</h3>
+                                    <button class="btn-register" onclick="openModal('${event.title}')">Daftar</button>
+                                </div>
+                                <p style="font-size: 13px; color: #666; margin-bottom: 10px;">${event.location}</p>
+                            </div>
+                        `;
+                        grid.appendChild(card);
+                    });
+                })
+                .catch(err => console.error('Error loading events:', err));
+        });
+
         function openModal(title) {
             modalTitle.innerText = "Daftar: " + title;
             modal.style.display = "flex";
@@ -101,7 +125,7 @@
             const email = document.getElementById("email").value;
             const eventName = modalTitle.innerText.replace("Daftar: ", "");
 
-            // Simulate API call
+            // Kirim data pendaftar ke server
             fetch('/api/register', {
                 method: 'POST',
                 headers: {

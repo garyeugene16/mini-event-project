@@ -47,8 +47,22 @@
 
     </div>
 
+    <!-- Popup untuk confirm delete -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeDeleteModal()">&times;</span>
+            <h2 class="modal-title">Konfirmasi Hapus</h2>
+            <p class="modal-description" id="deleteModalText">Apakah Anda yakin ingin menghapus event ini?</p>
+            <div style='display:none' style="text-align: right; margin-top: 20px;">
+                <button class="action-btn" onclick="closeDeleteModal()"
+                    style="background-color: #6c757d; color: white; margin-right: 10px;">Batal</button>
+                <button id="confirmDeleteBtn" class="action-btn btn-delete">Hapus</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Fetch events from API
+        // Panggil api untuk list semua event
         fetch('/api/events')
             .then(response => response.json())
             .then(events => {
@@ -68,8 +82,8 @@
                         <td>${event.date}</td>
                         <td>${event.location}</td>
                         <td>
-                            <a href="#" class="action-btn btn-edit" onclick="alert('Edit feature coming soon')">Edit</a>
-                            <a href="#" class="action-btn btn-delete" onclick="deleteEvent('${event.id}')">Delete</a>
+                            <a href="edit-event.html?id=${event.id}" class="action-btn btn-edit">Edit</a>
+                            <button type="button" style="display:none" class="action-btn btn-delete" onclick="deleteEvent(event, '${event.id}', '${event.title}')">Delete</button>
                         </td>
                     `;
                     tbody.appendChild(row);
@@ -77,22 +91,56 @@
             })
             .catch(err => console.error('Error loading events:', err));
 
-        function deleteEvent(id) {
-            if (confirm('Apakah Anda yakin ingin menghapus event ini?')) {
-                fetch(`/api/events/${id}`, {
-                    method: 'DELETE'
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data.success) {
-                            alert('Event berhasil dihapus');
-                            location.reload();
-                        } else {
-                            alert('Gagal menghapus event');
-                        }
-                    })
-                    .catch(err => alert('Error: ' + err));
+        let eventIdToDelete = null;
+
+        function deleteEvent(e, id, title) {
+            e.preventDefault();
+            eventIdToDelete = id;
+            const modal = document.getElementById('deleteModal');
+            const modalText = document.getElementById('deleteModalText');
+            modalText.textContent = `Apakah Anda yakin ingin menghapus event "${title}"?`;
+            modal.style.display = 'flex';
+
+            // Untuk tombol hapus di popup confimation
+            const confirmBtn = document.getElementById('confirmDeleteBtn');
+            confirmBtn.onclick = function () {
+                performDelete(eventIdToDelete);
+            };
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').style.display = 'none';
+            eventIdToDelete = null;
+        }
+
+        // Tutup popup ketika klik background
+        window.onclick = function (event) {
+            const modal = document.getElementById('deleteModal');
+            if (event.target == modal) {
+                closeDeleteModal();
             }
+        }
+        // Jalanin delete yang beneran
+        function performDelete(id) {
+            if (!id) return;
+
+            fetch(`/api/events/${id}`, {
+                method: 'DELETE'
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        // alert('Event berhasil dihapus');
+                        location.reload();
+                    } else {
+                        alert('Gagal menghapus event');
+                        closeDeleteModal();
+                    }
+                })
+                .catch(err => {
+                    alert('Error: ' + err);
+                    closeDeleteModal();
+                });
         }
     </script>
 
